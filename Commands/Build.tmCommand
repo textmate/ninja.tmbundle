@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>autoScrollOutput</key>
+	<true/>
+	<key>beforeRunningCommand</key>
+	<string>saveModifiedFiles</string>
+	<key>command</key>
+	<string>#!/usr/bin/env ruby -wKU
+require "#{ENV["TM_SUPPORT_PATH"]}/lib/tm/executor"
+require "#{ENV["TM_SUPPORT_PATH"]}/lib/escape"
+
+TM_NINJA = e_sh(ENV['TM_NINJA'] || 'ninja')
+
+TextMate::Executor.make_project_master_current_document
+
+ENV["TM_PROJECT_DIRECTORY"] ||= File.dirname(ENV["TM_FILEPATH"])
+Dir.chdir(ENV["TM_PROJECT_DIRECTORY"])
+ENV["TM_NINJA_FILE"] = ENV["TM_PROJECT_DIRECTORY"] + "/build.ninja" if ENV["TM_NINJA_FILE"].nil? or not File.file?(ENV["TM_NINJA_FILE"])
+
+flags = [ ]
+flags &lt;&lt; "-f" + File.basename(ENV["TM_NINJA_FILE"])
+flags &lt;&lt; ENV["TM_NINJA_FLAGS"]  unless ENV["TM_NINJA_FLAGS"].nil?
+flags &lt;&lt; ENV["TM_NINJA_TARGET"] unless ENV["TM_NINJA_TARGET"].nil?
+
+ENV["TM_DISPLAYNAME"] = ENV["TM_NINJA_TARGET"] || "default"
+
+Dir.chdir(File.dirname(ENV["TM_NINJA_FILE"]))
+
+dirs = [ENV['TM_PROJECT_DIRECTORY']]
+TextMate::Executor.run(TM_NINJA, flags, :verb =&gt; "Making", :use_hashbang =&gt; false, :version_args =&gt; '-V') do |line, type|
+  if line =~ /^(.*?):(?:(\d+):)?(?:(\d+):)?\s*(.*?)$/ and not $1.nil?
+    file, lineno, column, message = $1, $2, $3, $4
+    path = dirs.map{ |dir| File.expand_path(file, dir) }.find{ |path| File.file? path }
+    unless path.nil?
+      parms =  [    "url=file://#{e_url path}" ]
+      parms &lt;&lt; [   "line=#{lineno}"            ] unless lineno.nil?
+      parms &lt;&lt; [ "column=#{column}"            ] unless column.nil?
+      info = file
+      info &lt;&lt; " at line #{lineno}" unless lineno.nil?
+      info &lt;&lt; ", column #{column}" unless column.nil?
+      info &lt;&lt; "."
+      info = info.gsub('&amp;', '&amp;amp;').gsub('&lt;', '&amp;lt;').gsub('"', '&amp;quot;')
+      "&lt;a href=\"txmt://open?#{parms.join '&amp;'}\" title=\"#{info}\"&gt;#{htmlize message}&lt;/a&gt;&lt;br&gt;\n"
+    end
+  end
+end
+</string>
+	<key>input</key>
+	<string>none</string>
+	<key>keyEquivalent</key>
+	<string>@b</string>
+	<key>name</key>
+	<string>Build</string>
+	<key>outputFormat</key>
+	<string>html</string>
+	<key>outputLocation</key>
+	<string>newWindow</string>
+	<key>scope</key>
+	<string>attr.project.ninja</string>
+	<key>uuid</key>
+	<string>9D7D0D0B-AE88-427E-AA1F-693959311B83</string>
+</dict>
+</plist>

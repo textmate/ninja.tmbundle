@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>contactEmailRot13</key>
+	<string>gz-ohaqyrf@znpebzngrf.pbz</string>
+	<key>contactName</key>
+	<string>Allan Odgaard</string>
+	<key>description</key>
+	<string>Build command for &lt;a href="http://martine.github.com/ninja/"&gt;ninja&lt;/a&gt;.</string>
+	<key>name</key>
+	<string>Ninja</string>
+	<key>uuid</key>
+	<string>ADD9CB84-49C7-4BED-815C-B92340804265</string>
+</dict>
+</plist>

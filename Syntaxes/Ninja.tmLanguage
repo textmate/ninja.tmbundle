@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>fileTypes</key>
+	<array>
+		<string>src</string>
+	</array>
+	<key>keyEquivalent</key>
+	<string>^~N</string>
+	<key>name</key>
+	<string>Ninja</string>
+	<key>patterns</key>
+	<array>
+		<dict>
+			<key>match</key>
+			<string>$[$: ]</string>
+			<key>name</key>
+			<string>constant.character.escape.ninja</string>
+		</dict>
+		<dict>
+			<key>captures</key>
+			<dict>
+				<key>1</key>
+				<dict>
+					<key>name</key>
+					<string>punctuation.definition.variable.ninja</string>
+				</dict>
+			</dict>
+			<key>match</key>
+			<string>(\$)[a-zA-Z_][a-zA-Z0-9_]*</string>
+			<key>name</key>
+			<string>variable.other.normal.ninja</string>
+		</dict>
+		<dict>
+			<key>captures</key>
+			<dict>
+				<key>1</key>
+				<dict>
+					<key>name</key>
+					<string>punctuation.definition.variable.ninja</string>
+				</dict>
+			</dict>
+			<key>match</key>
+			<string>(\$)\{.*?\}</string>
+			<key>name</key>
+			<string>variable.other.bracket.ninja</string>
+		</dict>
+	</array>
+	<key>scopeName</key>
+	<string>source.ninja</string>
+	<key>uuid</key>
+	<string>012183BB-F02F-496D-9910-3B2504674FEC</string>
+</dict>
+</plist>

@@ -4,7 +4,7 @@
 <dict>
 	<key>fileTypes</key>
 	<array>
-		<string>src</string>
+		<string>ninja</string>
 	</array>
 	<key>keyEquivalent</key>
 	<string>^~N</string>

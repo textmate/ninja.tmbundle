@@ -19,6 +19,18 @@
 			<string>constant.character.escape.ninja</string>
 		</dict>
 		<dict>
+			<key>match</key>
+			<string>\b(build|rule|default)\b</string>
+			<key>name</key>
+			<string>storage.type.$1.ninja</string>
+		</dict>
+		<dict>
+			<key>match</key>
+			<string>\b(include|subninja)\b</string>
+			<key>name</key>
+			<string>keyword.control.$1.ninja</string>
+		</dict>
+		<dict>
 			<key>captures</key>
 			<dict>
 				<key>1</key>
@@ -48,7 +60,7 @@
 		</dict>
 		<dict>
 			<key>begin</key>
-			<string>(^[ \t]+)?(?=#)</string>
+			<string>^([ \t]+)?(?=#)</string>
 			<key>beginCaptures</key>
 			<dict>
 				<key>1</key>

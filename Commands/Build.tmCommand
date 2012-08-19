@@ -58,7 +58,7 @@ end
 	<key>outputLocation</key>
 	<string>newWindow</string>
 	<key>scope</key>
-	<string>attr.project.ninja</string>
+	<string>attr.project.ninja - (text dyn.selection)</string>
 	<key>uuid</key>
 	<string>9D7D0D0B-AE88-427E-AA1F-693959311B83</string>
 </dict>

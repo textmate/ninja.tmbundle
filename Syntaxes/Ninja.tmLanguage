@@ -14,6 +14,12 @@
 	<array>
 		<dict>
 			<key>match</key>
+			<string>^\t+(?![#\t]).*\n?</string>
+			<key>name</key>
+			<string>invalid.illegal.tab-not-allowed-here.ninja</string>
+		</dict>
+		<dict>
+			<key>match</key>
 			<string>$[$: ]</string>
 			<key>name</key>
 			<string>constant.character.escape.ninja</string>

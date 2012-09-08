@@ -49,17 +49,25 @@ end
 </string>
 	<key>input</key>
 	<string>none</string>
+	<key>inputFormat</key>
+	<string>text</string>
 	<key>keyEquivalent</key>
 	<string>@b</string>
 	<key>name</key>
 	<string>Build</string>
+	<key>outputCaret</key>
+	<string>afterOutput</string>
 	<key>outputFormat</key>
 	<string>html</string>
 	<key>outputLocation</key>
 	<string>newWindow</string>
 	<key>scope</key>
 	<string>attr.project.ninja - (text dyn.selection)</string>
+	<key>semanticClass</key>
+	<string>process.build.ninja</string>
 	<key>uuid</key>
 	<string>9D7D0D0B-AE88-427E-AA1F-693959311B83</string>
+	<key>version</key>
+	<integer>2</integer>
 </dict>
 </plist>

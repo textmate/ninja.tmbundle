@@ -12,6 +12,8 @@
 		<string>^$</string>
 		<key>increaseIndentPattern</key>
 		<string>^rule </string>
+		<key>indentOnPaste</key>
+		<string>simple</string>
 	</dict>
 	<key>uuid</key>
 	<string>BEBBF72F-AC25-400A-852E-76BD14CEFA62</string>

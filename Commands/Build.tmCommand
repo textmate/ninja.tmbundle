@@ -61,6 +61,20 @@ end
 	<string>html</string>
 	<key>outputLocation</key>
 	<string>newWindow</string>
+	<key>requiredCommands</key>
+	<array>
+		<dict>
+			<key>command</key>
+			<string>ninja</string>
+			<key>variable</key>
+			<string>TM_NINJA</string>
+			<key>locations</key>
+			<array>
+				<string>/opt/local/bin/ninja</string>
+				<string>/usr/local/bin/ninja</string>
+			</array>
+		</dict>
+	</array>
 	<key>scope</key>
 	<string>attr.project.ninja - (text dyn.selection)</string>
 	<key>semanticClass</key>

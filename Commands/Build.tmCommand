@@ -29,7 +29,7 @@ ENV["TM_DISPLAYNAME"] = ENV["TM_NINJA_TARGET"] || "default"
 Dir.chdir(File.dirname(ENV["TM_NINJA_FILE"]))
 
 dirs = [ENV['TM_PROJECT_DIRECTORY']]
-TextMate::Executor.run(TM_NINJA, flags, :verb =&gt; "Making", :use_hashbang =&gt; false, :version_args =&gt; '-V') do |line, type|
+TextMate::Executor.run(TM_NINJA, flags, :verb =&gt; "Making", :use_hashbang =&gt; false, :version_args =&gt; '--version') do |line, type|
   if line =~ /^(.*?):(?:(\d+):)?(?:(\d+):)?\s*(.*?)$/ and not $1.nil?
     file, lineno, column, message = $1, $2, $3, $4
     path = dirs.map{ |dir| File.expand_path(file, dir) }.find{ |path| File.file? path }

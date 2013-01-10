@@ -11,41 +11,17 @@
 require "#{ENV["TM_SUPPORT_PATH"]}/lib/tm/executor"
 require "#{ENV["TM_SUPPORT_PATH"]}/lib/escape"
 
-TM_NINJA = e_sh(ENV['TM_NINJA'] || 'ninja')
-
 TextMate::Executor.make_project_master_current_document
 
-ENV["TM_PROJECT_DIRECTORY"] ||= File.dirname(ENV["TM_FILEPATH"])
-Dir.chdir(ENV["TM_PROJECT_DIRECTORY"])
-ENV["TM_NINJA_FILE"] = ENV["TM_PROJECT_DIRECTORY"] + "/build.ninja" if ENV["TM_NINJA_FILE"].nil? or not File.file?(ENV["TM_NINJA_FILE"])
+ENV["TM_NINJA_FILE"] = File.expand_path('build.ninja', ENV["TM_PROJECT_DIRECTORY"] || ENV["TM_DIRECTORY"]) unless File.file?(ENV["TM_NINJA_FILE"].to_s)
+Dir.chdir(File.dirname(ENV["TM_NINJA_FILE"]))
 
 flags = [ ]
 flags &lt;&lt; "-f" + File.basename(ENV["TM_NINJA_FILE"])
 flags &lt;&lt; ENV["TM_NINJA_FLAGS"]  unless ENV["TM_NINJA_FLAGS"].nil?
 flags &lt;&lt; ENV["TM_NINJA_TARGET"] unless ENV["TM_NINJA_TARGET"].nil?
 
-ENV["TM_DISPLAYNAME"] = ENV["TM_NINJA_TARGET"] || "default"
-
-Dir.chdir(File.dirname(ENV["TM_NINJA_FILE"]))
-
-dirs = [ENV['TM_PROJECT_DIRECTORY']]
-TextMate::Executor.run(TM_NINJA, flags, :verb =&gt; "Making", :use_hashbang =&gt; false, :version_args =&gt; '--version') do |line, type|
-  if line =~ /^(.*?):(?:(\d+):)?(?:(\d+):)?\s*(.*?)$/ and not $1.nil?
-    file, lineno, column, message = $1, $2, $3, $4
-    path = dirs.map{ |dir| File.expand_path(file, dir) }.find{ |path| File.file? path }
-    unless path.nil?
-      parms =  [    "url=file://#{e_url path}" ]
-      parms &lt;&lt; [   "line=#{lineno}"            ] unless lineno.nil?
-      parms &lt;&lt; [ "column=#{column}"            ] unless column.nil?
-      info = file
-      info &lt;&lt; " at line #{lineno}" unless lineno.nil?
-      info &lt;&lt; ", column #{column}" unless column.nil?
-      info &lt;&lt; "."
-      info = info.gsub('&amp;', '&amp;amp;').gsub('&lt;', '&amp;lt;').gsub('"', '&amp;quot;')
-      "&lt;a href=\"txmt://open?#{parms.join '&amp;'}\" title=\"#{info}\"&gt;#{htmlize message}&lt;/a&gt;&lt;br&gt;\n"
-    end
-  end
-end
+TextMate::Executor.run(e_sh(ENV['TM_NINJA'] || 'ninja'), flags, :verb =&gt; "Making", :noun =&gt; (ENV["TM_NINJA_TARGET"] || "default"), :use_hashbang =&gt; false, :version_args =&gt; '--version')
 </string>
 	<key>input</key>
 	<string>none</string>
@@ -66,13 +42,13 @@ end
 		<dict>
 			<key>command</key>
 			<string>ninja</string>
-			<key>variable</key>
-			<string>TM_NINJA</string>
 			<key>locations</key>
 			<array>
 				<string>/opt/local/bin/ninja</string>
 				<string>/usr/local/bin/ninja</string>
 			</array>
+			<key>variable</key>
+			<string>TM_NINJA</string>
 		</dict>
 	</array>
 	<key>scope</key>

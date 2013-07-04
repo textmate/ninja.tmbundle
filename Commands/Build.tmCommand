@@ -14,14 +14,14 @@ require "#{ENV["TM_SUPPORT_PATH"]}/lib/escape"
 TextMate::Executor.make_project_master_current_document
 
 ENV["TM_NINJA_FILE"] = File.expand_path('build.ninja', ENV["TM_PROJECT_DIRECTORY"] || ENV["TM_DIRECTORY"]) unless File.file?(ENV["TM_NINJA_FILE"].to_s)
-Dir.chdir(File.dirname(ENV["TM_NINJA_FILE"]))
+dir, buildfile = File.split(ENV["TM_NINJA_FILE"])
 
 flags = [ ]
-flags &lt;&lt; "-f" + File.basename(ENV["TM_NINJA_FILE"])
+flags &lt;&lt; "-f" + buildfile
 flags &lt;&lt; ENV["TM_NINJA_FLAGS"]  unless ENV["TM_NINJA_FLAGS"].nil?
 flags &lt;&lt; ENV["TM_NINJA_TARGET"] unless ENV["TM_NINJA_TARGET"].nil?
 
-TextMate::Executor.run(e_sh(ENV['TM_NINJA'] || 'ninja'), flags, :verb =&gt; "Making", :noun =&gt; (ENV["TM_NINJA_TARGET"] || "default"), :use_hashbang =&gt; false, :version_args =&gt; '--version') do |str, type|
+TextMate::Executor.run(e_sh(ENV['TM_NINJA'] || 'ninja'), flags, :chdir =&gt; dir, :verb =&gt; "Making", :noun =&gt; (ENV["TM_NINJA_TARGET"] || "default"), :use_hashbang =&gt; false, :version_args =&gt; '--version') do |str, type|
   if str =~ /^\[(\d+)\/(\d+)\]\s*/
     js = "&lt;script&gt;TextMate.progress = %f&lt;/script&gt;" % ($1.to_f / $2.to_f)
     js + htmlize(str)

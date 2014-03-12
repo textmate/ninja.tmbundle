@@ -42,6 +42,8 @@ end
 	<string>html</string>
 	<key>outputLocation</key>
 	<string>newWindow</string>
+	<key>outputReuse</key>
+	<string>reuseBusy</string>
 	<key>requiredCommands</key>
 	<array>
 		<dict>

@@ -7,7 +7,7 @@
 	<key>contactName</key>
 	<string>Allan Odgaard</string>
 	<key>description</key>
-	<string>Build command for &lt;a href="http://martine.github.com/ninja/"&gt;ninja&lt;/a&gt;.</string>
+	<string>Build command for &lt;a href="https://ninja-build.org/"&gt;ninja&lt;/a&gt;.</string>
 	<key>name</key>
 	<string>Ninja</string>
 	<key>uuid</key>
